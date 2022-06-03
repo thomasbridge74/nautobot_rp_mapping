@@ -1,8 +1,8 @@
-from netbox.filtersets import NetBoxModelFilterSet
+from nautobot.utilities.filters import BaseFilterSet
 from .models import StaticRP, RPGroupEntry
 
 
-class StaticRPFilterSet(NetBoxModelFilterSet):
+class StaticRPFilterSet(BaseFilterSet):
     class Meta:
         model = StaticRP
         fields = ("id", "rp_address", "rp_acl_name", "override")
@@ -11,7 +11,7 @@ class StaticRPFilterSet(NetBoxModelFilterSet):
         return queryset.filter(description__icontains=value)
 
 
-class RPGroupEntryFilterSet(NetBoxModelFilterSet):
+class RPGroupEntryFilterSet(BaseFilterSet):
     class Meta:
         model = RPGroupEntry
         fields = (

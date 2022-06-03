@@ -1,11 +1,10 @@
-from rest_framework import serializers
-from netbox.api.serializers import NetBoxModelSerializer
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField
 from ..models import RPGroupEntry, StaticRP
-from ipam.api.serializers import NestedPrefixSerializer
+from nautobot.ipam.api.serializers import NestedPrefixSerializer
 
 
-class StaticRPSerializer(NetBoxModelSerializer):
-    url = serializers.HyperlinkedIdentityField(
+class StaticRPSerializer(ModelSerializer):
+    url = HyperlinkedIdentityField(
         view_name="plugins-api:nautobot_rp_mapping-api:staticrp-detail"
     )
 
@@ -25,8 +24,8 @@ class StaticRPSerializer(NetBoxModelSerializer):
         )
 
 
-class RPGroupEntrySerializer(NetBoxModelSerializer):
-    url = serializers.HyperlinkedIdentityField(
+class RPGroupEntrySerializer(ModelSerializer):
+    url = HyperlinkedIdentityField(
         view_name="plugins-api:nautobot_rp_mapping-api:rpgroupentry-detail"
     )
     mcast_group = NestedPrefixSerializer()

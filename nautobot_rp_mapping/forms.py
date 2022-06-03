@@ -1,17 +1,17 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from nautobot.extras.forms import CustomFieldModelForm, CustomFieldFilterForm
 from .models import StaticRP, RPGroupEntry
-from utilities.forms.fields import CommentField, DynamicModelChoiceField
-from ipam.models import Prefix, IPAddress
+from nautobot.utilities.forms.fields import CommentField, DynamicModelChoiceField
+from nautobot.ipam.models import Prefix, IPAddress
 from django import forms
 
 
-class RPForm(NetBoxModelForm):
+class RPForm(CustomFieldModelForm):
     class Meta:
         model = StaticRP
         fields = ("rp_address", "rp_acl_name", "override")
 
 
-class RPGroupForm(NetBoxModelForm):
+class RPGroupForm(CustomFieldModelForm):
     comments = CommentField()
     mcast_group = DynamicModelChoiceField(queryset=Prefix.objects.all())
 
@@ -26,7 +26,7 @@ class RPGroupForm(NetBoxModelForm):
         )
 
 
-class StaticRPFilterForm(NetBoxModelFilterSetForm):
+class StaticRPFilterForm(CustomFieldFilterForm):
     model = StaticRP
     rp_address = forms.ModelChoiceField(
         queryset=IPAddress.objects.all(), required=False
@@ -35,7 +35,7 @@ class StaticRPFilterForm(NetBoxModelFilterSetForm):
     context = forms.BooleanField(required=False)
 
 
-class RPGroupEntryFilterForm(NetBoxModelFilterSetForm):
+class RPGroupEntryFilterForm(CustomFieldFilterForm):
     model = RPGroupEntry
     group_name = forms.ModelChoiceField(queryset=StaticRP.objects.all(), required=False)
     sequence_no = forms.IntegerField(required=False)

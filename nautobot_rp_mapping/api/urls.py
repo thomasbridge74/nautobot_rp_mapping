@@ -1,9 +1,9 @@
-from netbox.api.routers import NetBoxRouter
+from rest_framework import routers
 from . import views
 
 app_name = "nautobot_rp_mapping"
 
-router = NetBoxRouter()
+router = routers.DefaultRouter()
 router.register("rp", views.StaticRPViewSet)
 router.register("rpgroup", views.RPGroupEntryViewSet)
 

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views, models
-from netbox.views.generic import ObjectChangeLogView
+# from nautobot.views.generic import ObjectChangeLogView
 
 urlpatterns = (
     # Entries for the RP itself
@@ -9,12 +9,12 @@ urlpatterns = (
     path("rp/<int:pk>/", views.RPView.as_view(), name="staticrp"),
     path("rp/<int:pk>/edit/", views.RPEditView.as_view(), name="staticrp_edit"),
     path("rp/<int:pk>/delete/", views.RPDeleteView.as_view(), name="staticrp_delete"),
-    path(
-        "rp/<int:pk>/changelog/",
-        ObjectChangeLogView.as_view(),
-        name="staticrp_changelog",
-        kwargs={"model": models.StaticRP},
-    ),
+    # path(
+    #     "rp/<int:pk>/changelog/",
+    #     ObjectChangeLogView.as_view(),
+    #     name="staticrp_changelog",
+    #     kwargs={"model": models.StaticRP},
+    # ),
     # Entries for the groups belonging to the RP.
     path("rpgroup/", views.RPGroupListView.as_view(), name="rpgroupentry_list"),
     path("rpgroup/add/", views.RPGroupEditView.as_view(), name="rpgroupentry_add"),
@@ -29,10 +29,10 @@ urlpatterns = (
         views.RPGroupDeleteView.as_view(),
         name="rpgroupentry_delete",
     ),
-    path(
-        "rpgroup/<int:pk>/changelog",
-        ObjectChangeLogView.as_view(),
-        name="rpgroupentry_changelog",
-        kwargs={"model": models.RPGroupEntry},
-    ),
+    # path(
+    #     "rpgroup/<int:pk>/changelog",
+    #     ObjectChangeLogView.as_view(),
+    #     name="rpgroupentry_changelog",
+    #     kwargs={"model": models.RPGroupEntry},
+    # ),
 )

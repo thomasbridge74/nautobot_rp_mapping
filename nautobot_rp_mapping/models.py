@@ -1,10 +1,12 @@
 from django.db import models
-from netbox.models import NetBoxModel
-from ipam.models import IPAddress, Prefix
+from nautobot.core.models.generics import PrimaryModel
+from nautobot.ipam.models import IPAddress, Prefix
+from nautobot.extras.utils import extras_features
 from django.urls import reverse
 
 
-class StaticRP(NetBoxModel):
+@extras_features("custom_fields", "relationships")
+class StaticRP(PrimaryModel):
     rp_address = models.ForeignKey(
         to=IPAddress, on_delete=models.DO_NOTHING, related_name="ip_address"
     )
@@ -22,7 +24,8 @@ class StaticRP(NetBoxModel):
         return reverse("plugins:nautobot_rp_mapping:staticrp", args=[self.pk])
 
 
-class RPGroupEntry(NetBoxModel):
+@extras_features("custom_fields", "relationships")
+class RPGroupEntry(PrimaryModel):
     group_name = models.ForeignKey(
         to=StaticRP, on_delete=models.CASCADE, related_name="mcast_rp"
     )

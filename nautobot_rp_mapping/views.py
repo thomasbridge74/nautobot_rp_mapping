@@ -1,4 +1,4 @@
-from netbox.views import generic
+from nautobot.extras.views import generic
 from . import forms, models, tables, filtersets
 
 
