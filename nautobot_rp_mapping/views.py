@@ -4,23 +4,25 @@ from . import forms, models, tables, filtersets
 
 class RPView(generic.ObjectView):
     queryset = models.StaticRP.objects.all()
+    template_name = "nautobot_rp_mapping/staticrp.html"
 
-    def get_extra_context(self, request, instance):
-        table = tables.GroupTable(instance.mcast_rp.all())
-        table.configure(request)
-        return {"rules_table": table}
+    # def get_extra_context(self, request, instance):
+    #     table = tables.GroupTable(instance.mcast_rp.all())
+    #     # table.configure(request)
+    #     return {"rules_table": table}
 
 
 class RPListView(generic.ObjectListView):
     queryset = models.StaticRP.objects.all()
     table = tables.RPTable
-    filterset = filtersets.StaticRPFilterSet
-    filterset_form = forms.StaticRPFilterForm
-
+    action_buttons = ()
+    # filterset = filtersets.StaticRPFilterSet
+    # filterset_form = forms.StaticRPFilterForm
+    template_name = "nautobot_rp_mapping/staticrp_list.html"
 
 class RPEditView(generic.ObjectEditView):
     queryset = models.StaticRP.objects.all()
-    form = forms.RPForm
+    model_form = forms.RPForm
 
 
 class RPDeleteView(generic.ObjectDeleteView):

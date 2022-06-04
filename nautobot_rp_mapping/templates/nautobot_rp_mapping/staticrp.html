@@ -1,33 +1,35 @@
-{% extends 'generic/object.html' %}
+{% extends 'base.html' %}
+{% load buttons %}
+{% load custom_links %}
+{% load helpers %}
+{% load plugins %}
 {% load render_table from django_tables2 %}
 
 {% block content %}
-<div class="row mb-3">
-    <div class="col col-md-6">
-        <div class="card">
-            <h5 class="card-header">Static RP</h5>
-            <div class="card-body">
-                <table class="table table-hover attr-table">
-                    <tr>
-                        <th scope="row">RP</th>
-                        <td>{{ object.rp_address }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Group Name</th>
-                        <td>{{ object.rp_acl_name }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Override</th>
-                        <td>{{ object.override }}</td>
-                    </tr>
-                </table>
-            </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Static RP</strong></div>
+            <table class="table table-hover panel-body attr-table">
+                <tr>
+                    <th scope="row">RP</th>
+                    <td> {{ object.rp_address }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Group Name</th>
+                    <td>{{ object.rp_acl_name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Override</th>
+                    <td>{{ object.override }}</td>
+                </tr>
+            </table>
         </div>
-      {% include 'inc/panels/custom_fields.html' %}
+      {% include 'inc/custom_fields_panel.html' %}
     </div>
     <div class="col col-md-6">
-      {% include 'inc/panels/tags.html' %}
-      {% include 'inc/panels/comments.html' %}
+{#      {% include 'inc/panels/tags.html' %}#}
+{#      {% include 'inc/panels/comments.html' %}#}
     </div>
 </div>
 
@@ -36,7 +38,7 @@
   <div class="card">
     <h5 class="card-header">Rules</h5>
     <div class="card-body table-responsive">
-      {% render_table rules_table %}
+{#      {% render_table rules_table %}#}
     </div>
   </div>
 </div>
