@@ -1,6 +1,7 @@
 from django.db import models
 from nautobot.core.models.generics import PrimaryModel
 from nautobot.ipam.models import IPAddress, Prefix
+from nautobot.dcim.models import Site, Region
 from nautobot.extras.utils import extras_features
 from django.urls import reverse
 
@@ -12,13 +13,20 @@ class StaticRP(PrimaryModel):
     )
     rp_acl_name = models.CharField(max_length=64, blank=False, unique=True)
     override = models.BooleanField(default=True)
+    site = models.ForeignKey(
+        to=Site, on_delete=models.DO_NOTHING,
+        null=True
+    )
+    region = models.ForeignKey(
+        to=Region, on_delete=models.DO_NOTHING, null=True
+    )
 
     class Meta:
         ordering = ("rp_address",)
         verbose_name_plural = "Static RPs"
 
     def __str__(self):
-        return str(self.rp_address)
+        return str(self.rp_address).split("/")[0]
 
     def get_absolute_url(self):
         return reverse("plugins:nautobot_rp_mapping:staticrp", args=[self.pk])

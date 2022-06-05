@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from nautobot.utilities.tables import BaseTable, ChoiceFieldColumn
+from nautobot.utilities.tables import BaseTable, ToggleColumn
 from .models import StaticRP, RPGroupEntry
 
 
@@ -9,6 +9,8 @@ class RPTable(BaseTable):
         fields = ("pk", "rp_address", "rp_acl_name", "override")
         default_columns = ("pk", "rp_address", "rp_acl_name", "override")
 
+    # pk = tables.Column(linkify=True)
+    pk = ToggleColumn()
     rp_address = tables.Column(linkify=True)
 
 
